@@ -1,63 +1,25 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 import cv2                        #importing opencv for image processing
 
-
-# In[4]:
-
-
 import matplotlib.pyplot as plt   #importing matplotlib for data visualization
-
-
-# In[5]:
-
 
 config_file = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'   #loading configuration file
 frozen_model = 'frozen_inference_graph.pb'                     #loading tensorflow pretrained model
 
-
-# In[6]:
-
-
 model = cv2.dnn_DetectionModel(frozen_model,config_file)       #loading tensorflow pretrained model into memory
-
-
-# In[7]:
-
 
 classLabels = []                                           #creating a list
 file_name = 'Labels.txt'                                   #Reading labels
 with open(file_name,'rt') as fpt:
     classLabels = fpt.read().rstrip('\n').split('\n')      #pushing into list
 
-
-# In[8]:
-
-
 print(classLabels)                                                #printing classlabels
 
-
-# In[9]:
-
-
 print(len(classLabels))                                            #printing total class length
-
-
-# In[10]:
-
 
 model.setInputSize(320,320)                                      #setting input size
 model.setInputScale(1.0/127.5)    #255/2=127.5                   #scaling input
 model.setInputMean((127.5,127.5,127.5))                   #setting input mean
 model.setInputSwapRB(True)                  #setting input swap = True for automatic RGB conversion
-
-
-# In[ ]:
-
 
 cap = cv2.VideoCapture(1)          #for capturing webcam
 
@@ -83,10 +45,4 @@ while True:
         break
 cap.release()
 cv2.destroyAllWindows()
-
-
-# In[ ]:
-
-
-
 
